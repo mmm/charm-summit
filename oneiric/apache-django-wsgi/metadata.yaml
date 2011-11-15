@@ -1,0 +1,13 @@
+name: apache-django-postgres
+summary: Apache+postgres + your Django project
+description: |
+  Deploy your Django project as an Apache mod_wsgi app.
+provides:
+  relation-name:
+    interface: interface-name
+requires:
+  relation-name:
+    interface: pgsql
+peers:
+  relation-name:
+    interface: interface-name

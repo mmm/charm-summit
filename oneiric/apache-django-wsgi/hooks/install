@@ -1,0 +1,20 @@
+#!/bin/bash
+sudo apt-get -y install puppet
+
+juju-log "Getting config options"
+app_branch_url=`config-get app-branch-url`
+app_branch_revision=`config-get app-branch-revision`
+hostname=`config-get hostname`
+additional_debian_packages=`config-get additional-debian-packages`
+additional_pip_packages=`config-get additional-pip-packages`
+
+juju-log "Initialising machine state."
+FACTER_hostname=$hostname puppet apply $PWD/hooks/initial_state.pp
+
+# Only here because I can only provide a list of packages in
+# the config, while puppet requires individual package names
+# for each package resource.
+juju-log "Installing extra debian packages."
+sudo apt-get -y install $additional_debian_packages
+
+juju-log "Installing extra pip packages"

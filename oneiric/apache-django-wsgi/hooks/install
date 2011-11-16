@@ -6,13 +6,15 @@ apt-get -y install puppet
 # (I've commented on and re-opened the above bug.
 apt-get -y install rubygems
 gem install puppet-module
-puppet-module install puppetlabs-vcsrepo --version=0.0.3
+puppet-module install puppetlabs-vcsrepo --version=0.0.3 --force
+rm -rf /etc/puppet/modules/vcsrepo/
 mv vcsrepo /etc/puppet/modules
 
 juju-log "Getting config options"
 app_source=`config-get app-source`
 app_source_type=`config-get app-source-type`
 app_source_revision=`config-get app-branch-revision`
+app_source_package_name=`config-get app-source-package-name`
 service_hostname=`config-get service-hostname`
 additional_debian_packages=`config-get additional-debian-packages`
 additional_pip_packages=`config-get additional-pip-packages`
@@ -35,3 +37,8 @@ if [ $additional_pip_packages ]; then
     juju-log "Installing extra pip packages"
     sudo pip install $additional_pip_packages
 fi
+
+FACTER_service_hostname=$service_hostname \
+FACTER_charm_dir=$PWD \
+FACTER_app_source_package_name=$app_source_package_name \
+puppet apply $PWD/hooks/project_layout.pp

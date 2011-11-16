@@ -19,21 +19,26 @@ options:
         description: |
             The revision of your application to deploy.
         type: string
-    project-source:
+    app-source-package-name:
         description: |
-          The location of the project deploy config (which can contain custom
-          settings, urls, django_wsgi, manage)
+            The name of the python package for your app (TODO: we should extract
+            automatically from setup.py)
         type: string
-        default: ''
-    project-source-type:
-        description: |
-            The vcs type to which app-source refers (bzr, git, etc).
-        default: bzr
-        type: string
-    project-source-revision:
-        description: |
-            The revision of your application to deploy.
-        type: string
+    # project-source:
+    #     description: |
+    #       The location of the project deploy config (which can contain custom
+    #       settings, urls, django_wsgi, manage)
+    #     type: string
+    #     default: ''
+    # project-source-type:
+    #     description: |
+    #         The vcs type to which app-source refers (bzr, git, etc).
+    #     default: bzr
+    #     type: string
+    # project-source-revision:
+    #     description: |
+    #         The revision of your application to deploy.
+    #     type: string
     additional-debian-packages:
         description: |
             Additional debian packages to install (eg. python-django-south). This

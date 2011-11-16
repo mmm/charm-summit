@@ -1,20 +1,37 @@
 #!/bin/bash
-sudo apt-get -y install puppet
+# We want to use the vcsrepo resource type, and it seems the
+# best way to install that is via the puppet-module tool.
+apt-get -y install puppet
+# Default vcsrepo 0.0.4 suffers from http://projects.puppetlabs.com/issues/9083
+# (I've commented on and re-opened the above bug.
+apt-get -y install rubygems
+gem install puppet-module
+puppet-module install puppetlabs-vcsrepo --version=0.0.3
+mv vcsrepo /etc/puppet/modules
 
 juju-log "Getting config options"
-app_branch_url=`config-get app-branch-url`
-app_branch_revision=`config-get app-branch-revision`
-hostname=`config-get hostname`
+app_source=`config-get app-source`
+app_source_type=`config-get app-source-type`
+app_source_revision=`config-get app-branch-revision`
+service_hostname=`config-get service-hostname`
 additional_debian_packages=`config-get additional-debian-packages`
 additional_pip_packages=`config-get additional-pip-packages`
 
 juju-log "Initialising machine state."
-FACTER_hostname=$hostname puppet apply $PWD/hooks/initial_state.pp
+FACTER_service_hostname=$service_hostname \
+FACTER_app_source=$app_source \
+FACTER_app_source_type=$app_source_type \
+FACTER_app_source_revision=$app_source_revision \
+puppet apply $PWD/hooks/initial_state.pp
 
-# Only here because I can only provide a list of packages in
-# the config, while puppet requires individual package names
-# for each package resource.
-juju-log "Installing extra debian packages."
-sudo apt-get -y install $additional_debian_packages
-
-juju-log "Installing extra pip packages"
+# Only here because I can't find a way to turn a config string into
+# the required list for the puppet manifest (tried "pkg1 pkg2".split)
+# for both apt and pip resource types.
+if [ $additional_debian_packages ]; then
+    juju-log "Installing extra debian packages."
+    sudo apt-get -y install $additional_debian_packages
+fi
+if [ $additional_pip_packages ]; then
+    juju-log "Installing extra pip packages"
+    sudo pip install $additional_pip_packages
+fi

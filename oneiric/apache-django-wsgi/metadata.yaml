@@ -1,5 +1,5 @@
-name: apache-django-postgres
-summary: Apache+postgres + your Django project
+name: apache-django-wsgi
+summary: Apache+wsgi for your Django project
 description: |
   Deploy your Django project as an Apache mod_wsgi app.
 provides:

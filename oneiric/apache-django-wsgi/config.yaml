@@ -1,40 +1,48 @@
 options:
-  hostname:
-    description: The hostname for which your project should be configured
-    type: string
-#        default: www.example.com
-#    app-branch-url:
-#        description: |
-#            The location of your Django application to deploy. The root
-#            folder should contain a standard python setup.py which can be
-#            used to install your app.
-#      default: ''
-#      type: string
-#    app-branch-revision:
-#      description: |
-#        The revision of your application to deploy.
-#      type: string
-#    app-branch-internal-location:
-#      description: |
-#        If your django app is located somewhere within your branch, specify
-#        the relative path here, other wise just leave it blank.
-#      type: string
-#      default: ''
-#    project-branch-url:
-#      description: |
-#        The location of the project deploy config (which can contain your
-#        settings, urls, django_wsgi, manage)
-#      type: string
-#      default: ''
-#    additional-debian-packages:
-#      description: |
-#        Additional debian packages to install (eg. python-django-south). This
-#        string will be passed to apt-get.
-#      type: string
-#      default: ''
-#    additional-pip-packages:
-#      description: |
-#        Additional python packages that are not yet available as Ubuntu/Debian
-#        packages.
-#      type: string
-#      default: ''
+    service-hostname:
+        description: The hostname for which your service should be configured
+        type: string
+        default: www.example.com
+    app-source:
+        description: |
+            The location of your Django application to deploy. The root
+            folder should contain a standard python setup.py which can be
+            used to install your app.
+        default: ''
+        type: string
+    app-source-type:
+        description: |
+            The vcs type to which app-source refers (bzr, git, etc).
+        default: bzr
+        type: string
+    app-source-revision:
+        description: |
+            The revision of your application to deploy.
+        type: string
+    project-source:
+        description: |
+          The location of the project deploy config (which can contain custom
+          settings, urls, django_wsgi, manage)
+        type: string
+        default: ''
+    project-source-type:
+        description: |
+            The vcs type to which app-source refers (bzr, git, etc).
+        default: bzr
+        type: string
+    project-source-revision:
+        description: |
+            The revision of your application to deploy.
+        type: string
+    additional-debian-packages:
+        description: |
+            Additional debian packages to install (eg. python-django-south). This
+            string will be passed to apt-get.
+        type: string
+        default: ''
+    additional-pip-packages:
+        description: |
+            Additional python packages that are not yet available as Ubuntu/Debian
+            packages.
+        type: string
+        default: ''

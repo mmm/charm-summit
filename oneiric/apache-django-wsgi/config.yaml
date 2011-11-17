@@ -24,6 +24,16 @@ options:
             The name of the python package for your app (TODO: we should extract
             automatically from setup.py)
         type: string
+    app-source-project-location:
+        description: |
+            The relative path within your source tree to a working project
+            configuration (ie. where the urls, settings, manage.py exists).
+            The database configuration will be overridden, as will the debug
+            flag. Currently this configuration information is required within
+            your application tree, but later we could easily support a separate
+            configuration branch as an alternative.
+        type: string
+        default: django_project
     # project-source:
     #     description: |
     #       The location of the project deploy config (which can contain custom

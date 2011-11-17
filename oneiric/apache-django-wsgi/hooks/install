@@ -18,14 +18,20 @@ app_source_package_name=`config-get app-source-package-name`
 service_hostname=`config-get service-hostname`
 additional_debian_packages=`config-get additional-debian-packages`
 additional_pip_packages=`config-get additional-pip-packages`
+app_source_project_location=`config-get app-source-project-location`
 
 juju-log "Initialising machine state."
 FACTER_service_hostname=$service_hostname \
 FACTER_app_source=$app_source \
 FACTER_app_source_type=$app_source_type \
 FACTER_app_source_revision=$app_source_revision \
+FACTER_app_source_package_name=$app_source_package_name \
+FACTER_app_source_project_location=$app_source_project_location \
 FACTER_charm_dir=$PWD \
-puppet apply $PWD/hooks/initial_state.pp
+puppet apply $PWD/hooks/manifests/initial_state.pp
+
+FACTER_service_hostname=$service_hostname \
+puppet apply $PWD/hooks/manifests/apache-wsgi.pp
 
 # Only here because I can't find a way to turn a config string into
 # the required list for the puppet manifest (tried "pkg1 pkg2".split)
@@ -38,7 +44,3 @@ if [ $additional_pip_packages ]; then
     juju-log "Installing extra pip packages"
     sudo pip install $additional_pip_packages
 fi
-
-FACTER_service_hostname=$service_hostname \
-FACTER_app_source_package_name=$app_source_package_name \
-puppet apply $PWD/hooks/project_layout.pp

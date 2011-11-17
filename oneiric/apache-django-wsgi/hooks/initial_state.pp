@@ -12,6 +12,14 @@ file { "/srv/$::service_hostname/":
   ensure => directory,
 }
 
+# Eventually this shouldn't be needed if we modularize
+# the puppet config (as the module's /templates directory will also
+# be checked). In the mean-time, ensure our templates are available.
+file { "/etc/puppet/templates/apache-django-wsgi":
+  ensure => link,
+  target => "$::charm_dir/hooks/templates",
+}
+
 if $::app_source {
   vcsrepo {"/tmp/django-app-branch":
     ensure => present,

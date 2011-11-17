@@ -3,7 +3,7 @@ import sys
 
 os.environ['DJANGO_SETTINGS_MODULE'] = 'project.settings'
 
-path = '/srv/$::service_hostname/project'
+path = '/srv/<%= service_hostname %>/project'
 if path not in sys.path:
     sys.path.append(path)
 

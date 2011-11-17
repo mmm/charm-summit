@@ -39,8 +39,3 @@ file { "/etc/puppet/templates/apache-django-wsgi":
   ensure => link,
   target => "$::charm_dir/hooks/templates",
 }
-
-file { "/srv/$::service_hostname/project/django.wsgi":
-  content => template("apache-django-wsgi/django.wsgi.erb"),
-  require => File["/etc/puppet/templates/apache-django-wsgi"],
-}

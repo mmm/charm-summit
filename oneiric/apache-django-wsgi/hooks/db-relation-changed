@@ -5,12 +5,15 @@ database_host=`relation-get host`
 database_name=`relation-get database`
 # All values are set together, so checking on a single value is enough
 # If $user is not set, DB is still setting itself up, we exit awaiting next run
-[ -z "$user" ] && exit 0
+[ -z "$database_user" ] && exit 0
+
+service_hostname=`config-get service-hostname`
 
 FACTER_database_user=$database_user \
 FACTER_database_password=$database_password \
 FACTER_database_host=$database_host \
 FACTER_database_name=$database_name \
+FACTER_service_hostname=$service_hostname \
 puppet apply $PWD/hooks/manifests/database_settings.pp
 
 service apache2 restart

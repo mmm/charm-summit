@@ -3,13 +3,13 @@ database_engine = postgresql_psycopg2
 database_name = <%= database_name %> 
 database_host = <%= database_host %>
 database_user = <%= database_user %>
-database_password = <% database_password %>
+database_password = <%= database_password %>
 
 [default_database] 
 engine = django.db.backends.postgresql_psycopg2
 name = <%= database_name %> 
 host = <%= database_host %>
 user = <%= database_user %>
-password = <% database_password %>
+password = <%= database_password %>
 
 

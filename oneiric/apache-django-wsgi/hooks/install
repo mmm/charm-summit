@@ -1,4 +1,5 @@
 #!/bin/bash
+set -eux # -x for verbose logging to juju debug-log
 # We want to use the vcsrepo resource type, and it seems the
 # best way to install that is via the puppet-module tool.
 apt-get -y install puppet
@@ -23,12 +24,12 @@ app_source_project_location=`config-get app-source-project-location`
 # Only here because I can't find a way to turn a config string into
 # the required list for the puppet manifest (tried "pkg1 pkg2".split)
 # for both apt and pip resource types.
-if [ $additional_debian_packages ]; then
-    juju-log "Installing extra debian packages."
+if [ "$additional_debian_packages" ]; then
+    juju-log "Installing extra debian packages: $additional_debian_packages"
     sudo apt-get -y install $additional_debian_packages
 fi
-if [ $additional_pip_packages ]; then
-    juju-log "Installing extra pip packages"
+if [ "$additional_pip_packages" ]; then
+    juju-log "Installing extra pip packages: $additional_pip_packages"
     sudo pip install $additional_pip_packages
 fi
 

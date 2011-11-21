@@ -2,12 +2,6 @@ name: apache-django-wsgi
 summary: Apache+wsgi for your Django project
 description: |
   Deploy your Django project as an Apache mod_wsgi app.
-provides:
-  relation-name:
-    interface: interface-name
 requires:
-  relation-name:
+  db:
     interface: pgsql
-peers:
-  relation-name:
-    interface: interface-name

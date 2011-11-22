@@ -1,1 +1,8 @@
+Alias /assets/ /srv/<%= service_hostname %>/project/static/
+
+<Directory /srv/<%= service_hostname %>/project/static>
+Order deny,allow
+Allow from all
+</Directory>
+
 WSGIScriptAlias / /srv/<%= service_hostname %>/project/django.wsgi

@@ -10,3 +10,10 @@ file { "/srv/$::service_hostname/project/django.wsgi":
 file { "/etc/apache2/httpd.conf":
   content => template("apache-django-wsgi/httpd.conf.erb"),
 }
+
+# Using `pip install` together with vcsrepo here as `pip -e ...` to get the
+# branch directly won't install it on the system.
+package {"/home/ubuntu/django-app-branch":
+  provider => pip,
+  ensure   => installed,
+}

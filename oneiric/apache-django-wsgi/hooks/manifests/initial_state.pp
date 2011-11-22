@@ -10,13 +10,6 @@ vcsrepo {"/home/ubuntu/django-app-branch":
   source   => $::app_source,
   revision => $::app_source_revision,
 }
-# Using `pip install` together with vcsrepo here as `pip -e ...` to get the
-# branch directly won't install it on the system.
-package {"/home/ubuntu/django-app-branch":
-  provider => pip,
-  ensure   => installed,
-  require  => Vcsrepo["/home/ubuntu/django-app-branch"],
-}
 
 file { "/srv/":
   ensure => directory,

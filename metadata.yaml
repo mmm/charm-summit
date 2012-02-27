@@ -1,4 +1,4 @@
-name: apache-django-wsgi
+name: django
 summary: Apache+wsgi for your Django project
 description: |
   Deploy your Django project as an Apache mod_wsgi app.

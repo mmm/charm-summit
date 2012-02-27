@@ -1,5 +1,5 @@
-name: django
-summary: Apache+wsgi for your Django project
+name: summit
+summary: Apache+wsgi+Django Conference Scheduling Application
 description: |
   Deploy your Django project as an Apache mod_wsgi app.
 requires:

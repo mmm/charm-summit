@@ -16,6 +16,9 @@ FACTER_database_name=$database_name \
 FACTER_service_hostname=$service_hostname \
 puppet apply $PWD/hooks/manifests/database_settings.pp
 
+[ -f lib/config-summit.sh ] && . lib/config-summit.sh && configure_summit "/srv/$service_hostname/project/"
+#MMM idempotency?
+
 open-port 80/tcp
 
 service apache2 restart

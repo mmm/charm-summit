@@ -16,7 +16,11 @@ FACTER_database_name=$database_name \
 FACTER_service_hostname=$service_hostname \
 puppet apply $PWD/hooks/manifests/database_settings.pp
 
-[ -f lib/config-summit.sh ] && . lib/config-summit.sh && configure_summit "/srv/$service_hostname/project/"
+startup_summit() {
+  summit_configure "/srv/$service_hostname/project/"
+  summit_run "/srv/$service_hostname/project/"
+}
+[ -f lib/summit.sh ] && . lib/summit.sh && startup_summit
 #MMM idempotency?
 
 open-port 80/tcp

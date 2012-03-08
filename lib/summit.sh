@@ -1,7 +1,6 @@
-
+#!/bin/bash
 
 generate_ssh_keys() {
-  #MMM this goes away when bzr+ssh: changes to http:
   local user=$1
   local home=$2
   if [ ! -f $home/.ssh/id_rsa ]; then
@@ -16,10 +15,8 @@ pip_install() {
 
 
 #MMM idempotency?
-configure_summit() {
+summit_configure() {
   local project_dir=$1
-
-  generate_ssh_keys ubuntu /home/ubuntu
 
   pip_install "$project_dir/requirements.txt"
 
@@ -28,19 +25,23 @@ configure_summit() {
   # template local_settings.py
   cp local_settings.py.sample local_settings.py
 
-  ./manage.py init-summit
-  ./manage.py pullapps
+  generate_ssh_keys ubuntu /home/ubuntu # goes away when bzr+ssh: changes to http:
 
-  ./manage.py syncdb
-  ./manage.py migrate
+  #./manage.py init-summit
+
+  #./manage.py pullapps
+
+  #./manage.py syncdb
+
+  #./manage.py migrate
 
 }
 
-run_summit() {
+summit_run() {
   local project_dir=$1
 
   # template a real upstart job here
-  ./manage.py runserver
+  #cd $project_dir && ./manage.py runserver
 
 }
 

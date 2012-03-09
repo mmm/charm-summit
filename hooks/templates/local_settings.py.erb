@@ -1,0 +1,14 @@
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': <%= database_name %>,
+        'USER': <%= database_user %>,
+        'PASSWORD': <%= database_password %>,
+        'HOST': <%= database_host %>,
+        'PORT': '',
+    },
+}
+
+SECRET_KEY = ''
+
+DEBUG = True

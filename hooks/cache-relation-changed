@@ -1,0 +1,7 @@
+#!/bin/bash
+
+cache_host=`relation-get private-address`
+cache_port=`relation-get port`
+
+# write out CACHE_BACKEND to local_settings.py?
+

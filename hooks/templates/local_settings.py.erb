@@ -1,14 +1,15 @@
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': <%= database_name %>,
-        'USER': <%= database_user %>,
-        'PASSWORD': <%= database_password %>,
-        'HOST': <%= database_host %>,
-        'PORT': '',
+        'ENGINE': "django.db.backends.postgresql_psycopg2",
+        'NAME': "<%= database_name %>",
+        'USER': "<%= database_user %>",
+        'PASSWORD': "<%= database_password %>",
+        'HOST': "<%= database_host %>",
+        'PORT': "<%= database_port %>",
     },
 }
 
-SECRET_KEY = ''
+SECRET_KEY = "<%= secret_key %>"
 
 DEBUG = True
+

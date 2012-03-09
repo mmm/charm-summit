@@ -46,3 +46,15 @@ puppet apply $PWD/hooks/manifests/initial_state.pp
 FACTER_service_hostname=$service_hostname \
 puppet apply $PWD/hooks/manifests/apache-wsgi.pp
 
+pip_install() {
+  local source_dir="/home/ubuntu/django-app-branch"
+  pip install -r $source_dir/requirements.txt
+}
+pip_install
+#MMM idempotency?
+
+generate_secret_key() {
+  secret_key=`echo $RANDOM | md5sum | awk '{print $1}'`
+  echo $secret_key > $CHARM_DIR/SECRET_KEY
+}
+[ -f $CHARM_DIR/SECRET_KEY ] || generate_secret_key

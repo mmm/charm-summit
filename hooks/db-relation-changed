@@ -1,8 +1,11 @@
 #!/bin/bash
+
 database_user=`relation-get user`
 database_password=`relation-get password`
 database_host=`relation-get host`
 database_name=`relation-get database`
+database_port="5432"
+secret_key=`cat $CHARM_DIR/SECRET_KEY`
 # All values are set together, so checking on a single value is enough
 # If $user is not set, DB is still setting itself up, we exit awaiting next run
 [ -z "$database_user" ] && exit 0
@@ -13,15 +16,10 @@ FACTER_database_user=$database_user \
 FACTER_database_password=$database_password \
 FACTER_database_host=$database_host \
 FACTER_database_name=$database_name \
+FACTER_database_port=$database_port \
 FACTER_service_hostname=$service_hostname \
+FACTER_secret_key=$secret_key \
 puppet apply $PWD/hooks/manifests/database_settings.pp
-
-startup_summit() {
-  summit_configure "/srv/$service_hostname/project/"
-  summit_run "/srv/$service_hostname/project/"
-}
-[ -f lib/summit.sh ] && . lib/summit.sh && startup_summit
-#MMM idempotency?
 
 open-port 80/tcp
 

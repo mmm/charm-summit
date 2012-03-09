@@ -22,7 +22,7 @@ file { "/srv/$::service_hostname/project/local_settings.py":
 #  cwd => "/srv/$::service_hostname/project",
 #  path => ["/usr/bin"],
 #  require => Exec["python ./manage.py syncdb --noinput"],
-}
+#}
 
 # Only after we're certain that all required apps/packages are installed
 # do we collect all the static files ready for apache to serve.

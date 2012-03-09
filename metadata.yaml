@@ -5,3 +5,5 @@ description: |
 requires:
   db:
     interface: pgsql
+  cache:
+    interface: memcache

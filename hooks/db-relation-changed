@@ -23,14 +23,20 @@ FACTER_service_hostname=$service_hostname \
 FACTER_secret_key=$secret_key \
 FACTER_site_root=$site_root \
 FACTER_theme_media=$theme_media \
-puppet apply $PWD/hooks/manifests/database_settings.pp
+puppet apply $PWD/manifests/database_settings.pp
+
+remove_south() {
+  local project_dir="/srv/$service_hostname/project"
+  local settings_file="$project_dir/settings.py"
+  sed -i "s/\('south',\)/#\1/" $settings_file
+}
+remove_south
 
 configure_database() {
   local project_dir="/srv/$service_hostname/project"
-  cd $project_dir && python ./manage.py init-summit
-  cd $project_dir && python ./manage.py pullapps
-  cd $project_dir && python ./manage.py syncdb --noinput
-  cd $project_dir && python ./manage.py migrate
+  cd $project_dir && python ./manage.py init-summit --settings=ubuntu_settings
+  cd $project_dir && python ./manage.py pullapps --settings=ubuntu_settings
+  cd $project_dir && python ./manage.py syncdb --noinput --settings=ubuntu_settings
 }
 configure_database
 

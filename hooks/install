@@ -41,10 +41,10 @@ FACTER_app_source_revision=$app_source_revision \
 FACTER_app_source_package_name=$app_source_package_name \
 FACTER_app_source_project_location=$app_source_project_location \
 FACTER_charm_dir=$PWD \
-puppet apply $PWD/hooks/manifests/initial_state.pp
+puppet apply $PWD/manifests/initial_state.pp
 
 FACTER_service_hostname=$service_hostname \
-puppet apply $PWD/hooks/manifests/apache-wsgi.pp
+puppet apply $PWD/manifests/apache-wsgi.pp
 
 pip_install() {
   local source_dir="/home/ubuntu/django-app-branch"

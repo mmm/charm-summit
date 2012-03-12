@@ -9,6 +9,13 @@ DATABASES = {
     },
 }
 
+DATABASE_ENGINE = "django.db.backends.postgresql_psycopg2"
+DATABASE_NAME = "<%= database_name %>"
+DATABASE_USER = "<%= database_user %>"
+DATABASE_PASSWORD = "<%= database_password %>"
+DATABASE_HOST = "<%= database_host %>"
+DATABASE_PORT = "<%= database_port %>"
+
 SECRET_KEY = "<%= secret_key %>"
 SITE_ROOT = "<%= site_root %>"
 THEME_MEDIA = "<%= theme_media %>"

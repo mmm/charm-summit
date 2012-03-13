@@ -30,5 +30,5 @@ file { "/srv/$::service_hostname/project/":
 # be checked). In the mean-time, ensure our templates are available.
 file { "/etc/puppet/templates/apache-django-wsgi":
   ensure => link,
-  target => "$::charm_dir/hooks/templates",
+  target => "$::charm_dir/templates",
 }

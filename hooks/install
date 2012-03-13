@@ -1,5 +1,8 @@
 #!/bin/bash
 set -eux # -x for verbose logging to juju debug-log
+
+[ -f lib/ch-file.sh ] && . lib/ch-file.sh
+
 # We want to use the vcsrepo resource type, and it seems the
 # best way to install that is via the puppet-module tool.
 apt-get -y install puppet
@@ -58,3 +61,9 @@ generate_secret_key() {
   echo $secret_key > $CHARM_DIR/SECRET_KEY
 }
 [ -f $CHARM_DIR/SECRET_KEY ] || generate_secret_key
+
+install_custom_django_commands() {
+  juju-log "ugh"
+}
+install_custom_django_commands
+

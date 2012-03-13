@@ -33,12 +33,31 @@ remove_south() {
 remove_south
 
 configure_database() {
+  local settings_file="ubuntu_settings"
   local project_dir="/srv/$service_hostname/project"
-  cd $project_dir && python ./manage.py init-summit --settings=ubuntu_settings
-  cd $project_dir && python ./manage.py pullapps --settings=ubuntu_settings
-  cd $project_dir && python ./manage.py syncdb --noinput --settings=ubuntu_settings
+  cd $project_dir && python ./manage.py init-summit --settings=$settings_file
+  cd $project_dir && python ./manage.py pullapps --settings=$settings_file
+  cd $project_dir && python ./manage.py syncdb --noinput --settings=$settings_file
 }
 configure_database
+
+add_menu() {
+  local settings_file="ubuntu_settings"
+  local project_dir="/srv/$service_hostname/project"
+  local command="from common.models import Menu; Menu.objects.create(name='UDS', slug='uds', site_id=1)"
+  cd $project_dir 
+  echo $command | python ./manage.py shell --settings=$settings_file
+}
+add_menu
+
+add_superuser() {
+  local settings_file="ubuntu_settings"
+  local project_dir="/srv/$service_hostname/project"
+  local command="from django.contrib.auth.models import User; User.objects.create_superuser('root', 'me@aol.com', 'pass')"
+  cd $project_dir 
+  echo $command | python ./manage.py shell --settings=$settings_file
+}
+add_superuser
 
 open-port 80/tcp
 

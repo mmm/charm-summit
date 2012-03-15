@@ -49,6 +49,11 @@ puppet apply $PWD/manifests/initial_state.pp
 FACTER_service_hostname=$service_hostname \
 puppet apply $PWD/manifests/apache-wsgi.pp
 
+clean_up_apache() {
+  rm -f /etc/apache2/sites-enabled/000-default
+}
+clean_up_apache
+
 pip_install() {
   local source_dir="/home/ubuntu/django-app-branch"
   pip install -r $source_dir/requirements.txt

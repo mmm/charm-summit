@@ -7,8 +7,8 @@ file { "/srv/$::service_hostname/project/django.wsgi":
   content => template("apache-django-wsgi/django.wsgi.erb"),
 }
 
-file { "/etc/apache2/httpd.conf":
-  content => template("apache-django-wsgi/httpd.conf.erb"),
+file { "/etc/apache2/conf.d/summit.conf":
+  content => template("apache-django-wsgi/vhost.conf.erb"),
 }
 
 # Using `pip install` together with vcsrepo here as `pip -e ...` to get the

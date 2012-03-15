@@ -2,17 +2,17 @@
   ServerName      summit.ubuntu.com
   ServerAdmin     chrisjohnston@ubuntu.com
 
-  CustomLog       /var/log/apache2/summit-access.log combined
-  ErrorLog        /var/log/apache2/summit-error.log
+  CustomLog       /var/log/apache2/<%= service_hostname %>-access.log combined
+  ErrorLog        /var/log/apache2/<%= service_hostname %>-error.log
 
-  DocumentRoot    /srv/summit/www/root
+  DocumentRoot    /srv/<%= service_hostname %>/www/root
 
-  Alias           /favicon.ico    /srv/summit.ubuntu.com/www/root/favicon.ico
-  Alias           /robots.txt     /srv/summit.ubuntu.com/www/root/robots.txt
+  Alias           /favicon.ico    /srv/<%= service_hostname %>/www/root/favicon.ico
+  Alias           /robots.txt     /srv/<%= service_hostname %>/www/root/robots.txt
   WSGIDaemonProcess summit processes=6 threads=20 maximum-requests=750
   WSGIProcessGroup summit
-  WSGISCriptAlias /       /srv/summit/summit/django.wsgi
-  Alias           /media/         /srv/summit/summit/media/
+  WSGISCriptAlias /       /srv/<%= service_hostname %>/project/django.wsgi
+  Alias           /media/         /srv/<%= service_hostname %>/project/media/
   Alias           /admin/media/ /usr/share/pyshared/django/contrib/admin/media/
-  Alias           /ubuntu-website/media/  /srv/summit/summit/ubuntu_website/media/
+  Alias           /ubuntu-website/media/  /srv/<%= service_hostname %>/project/ubuntu_website/media/
 </VirtualHost>

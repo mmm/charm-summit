@@ -25,6 +25,24 @@ file { "/srv/$::service_hostname/project/":
   require => File["/srv/$::service_hostname/"],
 }
 
+file { "/srv/$::service_hostname/www/":
+  ensure => directory,
+}
+
+file { "/srv/$::service_hostname/www/root/":
+  ensure => directory,
+}
+
+file { "/srv/$::service_hostname/www/root/favicon.ico":
+  source => "$::charm_dir/files/favicon.ico",
+  require => File["/srv/$::service_hostname/www/root/"],
+}
+
+file { "/srv/$::service_hostname/www/root/robots.txt":
+  source => "$::charm_dir/files/robots.txt",
+  require => File["/srv/$::service_hostname/www/root/"],
+}
+
 # Eventually this shouldn't be needed if we modularize
 # the puppet config (as the module's /templates directory will also
 # be checked). In the mean-time, ensure our templates are available.

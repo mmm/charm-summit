@@ -53,7 +53,9 @@ add_menu
 add_superuser() {
   local settings_file="ubuntu_settings"
   local project_dir="/srv/$service_hostname/project"
-  local command="from django.contrib.auth.models import User; User.objects.create_superuser('root', 'me@aol.com', 'pass')"
+  local user=`config-get admin-user`
+  local password=`config-get admin-password`
+  local command="from django.contrib.auth.models import User; User.objects.create_superuser('$user', 'me@aol.com', '$password')"
   cd $project_dir 
   echo $command | python ./manage.py shell --settings=$settings_file
 }

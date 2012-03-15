@@ -61,3 +61,11 @@ options:
             packages.
         type: string
         default: ''
+    admin-user:
+        description: admin user
+        type: string
+        default: admin
+    admin-password:
+        description: admin password
+        type: string
+        default: admin

@@ -69,3 +69,7 @@ options:
         description: admin password
         type: string
         default: admin
+    app-theme-branch:
+        description: The branch for the django site theme
+        type: string
+        default: 'http://bazaar.launchpad.net/~ubuntu-community-webthemes/ubuntu-community-webthemes/light-django-theme'

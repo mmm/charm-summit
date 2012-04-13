@@ -11,8 +11,9 @@
   Alias           /robots.txt     /srv/<%= service_hostname %>/www/root/robots.txt
   WSGIDaemonProcess summit processes=6 threads=20 maximum-requests=750
   WSGIProcessGroup summit
-  WSGISCriptAlias /       /srv/<%= service_hostname %>/project/django.wsgi
-  Alias           /media/         /srv/<%= service_hostname %>/project/media/
+  WSGISCriptAlias /       /srv/<%= service_hostname %>/summit/django.wsgi
+  Alias           /media/         /srv/<%= service_hostname %>/summit/media/
   Alias           /admin/media/ /usr/share/pyshared/django/contrib/admin/media/
-  Alias           /ubuntu-website/media/  /srv/<%= service_hostname %>/project/ubuntu_website/media/
+  #Alias           /admin/media/ /usr/local/lib/python2.7/dist-packages/django/contrib/admin/media/
+  Alias           /ubuntu-website/media/  /srv/<%= service_hostname %>/summit/ubuntu_website/media/
 </VirtualHost>

@@ -55,8 +55,10 @@ clean_up_apache() {
 clean_up_apache
 
 pip_install() {
-  local source_dir="/home/ubuntu/django-app-branch"
+  local source_dir="/srv/$service_hostname"
   pip install -r $source_dir/requirements.txt
+  #python2.6 /usr/bin/pip install -r $source_dir/requirements.txt
+	apt-get install python2.6 python2.6-dev python-virtualenv libjs-jquery libjs-jquery-ui iso-codes python-django python-django-openid-auth python-django-south python-beautifulsoup python-psycopg2 python-openid python-tz python-simplejson
 }
 pip_install
 #MMM idempotency?
@@ -71,4 +73,13 @@ install_custom_django_commands() {
   juju-log "ugh"
 }
 install_custom_django_commands
+
+install_site_theme() {
+  local project_dir="/srv/$service_hostname/summit"
+  theme_branch=`config-get app-theme-branch`
+  branch_target=$project_dir/ubuntu_website
+  rm -Rf $branch_target
+  ( cd $project_dir && bzr branch $theme_branch $branch_target )
+}
+install_site_theme
 

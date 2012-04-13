@@ -1,5 +1,5 @@
 # TODO: add conditional for non-configglue settings.
-file { "/srv/$::service_hostname/project/local_settings.py":
+file { "/srv/$::service_hostname/summit/local_settings.py":
   content => template("apache-django-wsgi/local_settings.py.erb"),
 }
 

@@ -4,26 +4,23 @@ package {['apache2', 'libapache2-mod-wsgi', 'python-psycopg2',
   ensure   => installed,
 }
 
-vcsrepo {"/home/ubuntu/django-app-branch":
-  ensure => present,
-  provider => $::app_source_type,
-  source   => $::app_source,
-  revision => $::app_source_revision,
-}
-
 file { "/srv/":
   ensure => directory,
 }
 
-file { "/srv/$::service_hostname/":
-  ensure => directory,
+vcsrepo { "/srv/$::service_hostname/":
+  ensure => present,
+  provider => $::app_source_type,
+  source   => $::app_source,
+  revision => $::app_source_revision,
+  require => File["/srv/"],
 }
 
-file { "/srv/$::service_hostname/project/":
-  recurse => true,
-  source => "file:///home/ubuntu/django-app-branch/$::app_source_project_location",
-  require => File["/srv/$::service_hostname/"],
-}
+#file { "/srv/$::service_hostname/project/":
+#  recurse => true,
+#  source => "file:///home/ubuntu/django-app-branch/$::app_source_project_location",
+#  require => File["/srv/$::service_hostname/"],
+#}
 
 file { "/srv/$::service_hostname/www/":
   ensure => directory,

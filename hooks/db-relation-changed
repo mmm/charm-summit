@@ -12,7 +12,7 @@ secret_key=`cat $CHARM_DIR/SECRET_KEY`
 
 service_hostname=`config-get service-hostname`
 site_root="http://$service_hostname"
-theme_media="/srv/$service_hostname/project/media"
+theme_media="/srv/$service_hostname/summit/media"
 
 FACTER_database_user=$database_user \
 FACTER_database_password=$database_password \
@@ -26,7 +26,7 @@ FACTER_theme_media=$theme_media \
 puppet apply $PWD/manifests/database_settings.pp
 
 remove_south() {
-  local project_dir="/srv/$service_hostname/project"
+  local project_dir="/srv/$service_hostname/summit"
   local settings_file="$project_dir/settings.py"
   sed -i "s/\('south',\)/#\1/" $settings_file
 }
@@ -34,8 +34,9 @@ remove_south
 
 configure_database() {
   local settings_file="ubuntu_settings"
-  local project_dir="/srv/$service_hostname/project"
+  local project_dir="/srv/$service_hostname/summit"
   cd $project_dir && python ./manage.py init-summit --settings=$settings_file
+  cd $project_dir && python ./manage.py collectstatic --noinput --settings=$settings_file
   cd $project_dir && python ./manage.py pullapps --settings=$settings_file
   cd $project_dir && python ./manage.py syncdb --noinput --settings=$settings_file
 }
@@ -43,7 +44,7 @@ configure_database
 
 add_menu() {
   local settings_file="ubuntu_settings"
-  local project_dir="/srv/$service_hostname/project"
+  local project_dir="/srv/$service_hostname/summit"
   local command="from common.models import Menu; Menu.objects.create(name='UDS', slug='uds', site_id=1)"
   cd $project_dir 
   echo $command | python ./manage.py shell --settings=$settings_file
@@ -52,7 +53,7 @@ add_menu
 
 add_superuser() {
   local settings_file="ubuntu_settings"
-  local project_dir="/srv/$service_hostname/project"
+  local project_dir="/srv/$service_hostname/summit"
   local user=`config-get admin-user`
   local password=`config-get admin-password`
   local command="from django.contrib.auth.models import User; User.objects.create_superuser('$user', 'me@aol.com', '$password')"

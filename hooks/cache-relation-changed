@@ -8,6 +8,6 @@ cache_backend="memcached://$cache_host:$cache_port/"
 
 
 service_hostname=`config-get service-hostname`
-project_dir="/srv/$service_hostname/project"
+project_dir="/srv/$service_hostname"
 echo "CACHE_BACKEND = \"$cache_backend\"" > $project_dir/cache-config.py
 

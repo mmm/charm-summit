@@ -8,12 +8,16 @@ cache_port=`relation-get port`
 
 service_hostname=`config-get service-hostname`
 project_dir="/srv/$service_hostname"
+project_location=`config-get app-source-project-location`
 
-cat > $project_dir/cache_config.py << EOS
+mkdir -p $project_dir/$project_location
+
+cat > $project_dir/$project_location/cache_config.py << EOS
 CACHES = {
-    \'default\': {
-        \'BACKEND\': \'django.core.cache.backends.memcached.MemcachedCache\',
-        \'LOCATION\': \'$cache_host:$cache_port\',
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': '$cache_host:$cache_port',
+        'TIMEOUT': 86400,
     }
 }
 EOS

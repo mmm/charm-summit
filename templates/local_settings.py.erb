@@ -20,6 +20,10 @@ SECRET_KEY = "<%= secret_key %>"
 SITE_ROOT = "<%= site_root %>"
 THEME_MEDIA = "<%= theme_media %>"
 
-
 DEBUG = True
+
+try:
+    from cache_config import *
+except:
+    logging.warning("No cache_config.py was found. No memcache service units related.")
 

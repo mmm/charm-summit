@@ -4,10 +4,18 @@ cache_host=`relation-get private-address`
 cache_port=`relation-get port`
 
 # write out CACHE_BACKEND to local_settings.py?
-cache_backend="memcached://$cache_host:$cache_port/"
-
+#cache_backend="memcached://$cache_host:$cache_port/?timeout=86400"
 
 service_hostname=`config-get service-hostname`
 project_dir="/srv/$service_hostname"
-echo "CACHE_BACKEND = \"$cache_backend\"" > $project_dir/cache-config.py
+
+cat > $project_dir/cache_config.py << EOS
+CACHES = {
+    \'default\': {
+        \'BACKEND\': \'django.core.cache.backends.memcached.MemcachedCache\',
+        \'LOCATION\': \'$cache_host:$cache_port\',
+    }
+}
+EOS
+
 

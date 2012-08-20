@@ -58,7 +58,7 @@ pip_install() {
   local source_dir="/srv/$service_hostname"
   pip install -r $source_dir/requirements.txt
   #python2.6 /usr/bin/pip install -r $source_dir/requirements.txt
-	apt-get install python2.6 python2.6-dev python-virtualenv libjs-jquery libjs-jquery-ui iso-codes python-django python-django-openid-auth python-django-south python-beautifulsoup python-psycopg2 python-openid python-tz python-simplejson
+	apt-get install python2.6 python2.6-dev python-virtualenv libjs-jquery libjs-jquery-ui iso-codes python-django python-django-openid-auth python-django-south python-beautifulsoup python-psycopg2 python-openid python-tz python-simplejson python-memcache
 }
 pip_install
 #MMM idempotency?

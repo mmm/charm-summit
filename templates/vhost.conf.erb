@@ -16,4 +16,10 @@
   Alias           /admin/media/ /usr/share/pyshared/django/contrib/admin/media/
   #Alias           /admin/media/ /usr/local/lib/python2.7/dist-packages/django/contrib/admin/media/
   Alias           /ubuntu-website/media/  /srv/<%= service_hostname %>/summit/ubuntu_website/media/
+
+  Alias           /static/ /srv/<%= service_hostname %>/summit/static/
+  <Directory /srv/<%= service_hostname %>/summit/static>
+    Order deny,allow
+    Allow from all
+  </Directory>
 </VirtualHost>

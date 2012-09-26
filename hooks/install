@@ -5,7 +5,7 @@ set -eux # -x for verbose logging to juju debug-log
 
 # We want to use the vcsrepo resource type, and it seems the
 # best way to install that is via the puppet-module tool.
-apt-get -y install puppet
+apt-get -y install puppet pwgen
 # Default vcsrepo 0.0.4 suffers from http://projects.puppetlabs.com/issues/9083
 # (I've commented on and re-opened the above bug.
 apt-get -y install rubygems
@@ -64,7 +64,8 @@ pip_install
 #MMM idempotency?
 
 generate_secret_key() {
-  secret_key=`echo $RANDOM | md5sum | awk '{print $1}'`
+  local key_length=24
+  local secret_key=`pwgen $key_length 1`
   echo $secret_key > $CHARM_DIR/SECRET_KEY
 }
 [ -f $CHARM_DIR/SECRET_KEY ] || generate_secret_key
